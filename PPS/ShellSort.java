@@ -1,20 +1,22 @@
-class ShellSort extends SorStrategy {
-
-    @Override
+public class ShellSort extends SortStrategy {
     public void sort(MyList list) {
-        System.out.println("Ordenação ShellSort");
-        List<Integer> data = list.getData();
-        int n = data.size();
-
-        for (int gap = n / 2; gap > 0; gap /= 2) {
+        int[] a = list.data();
+        int n = a.length;
+        int gap = 1;
+        while (gap < n / 3) gap = 3 * gap + 1;
+        while (gap >= 1) {
             for (int i = gap; i < n; i++) {
-                int temp = data.get(i);
-                int j;
-                for (j = i; j >= gap && data.get(j - gap) > temp; j -= gap) {
-                    data.set(j, data.get(j - gap));
+                int temp = a[i];
+                int j = i;
+                while (j >= gap && a[j - gap] > temp) {
+                    a[j] = a[j - gap];
+                    j -= gap;
                 }
-                data.set(j, temp);
+                a[j] = temp;
             }
+            gap /= 3;
         }
+        System.out.println("Ordenação ShellSort");
+        list.print();
     }
 }

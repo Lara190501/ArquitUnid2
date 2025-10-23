@@ -1,40 +1,26 @@
-class HeapSort extends SorStrategy {
-
-    @Override
+public class HeapSort extends SortStrategy {
     public void sort(MyList list) {
+        int[] a = list.data();
+        int n = a.length;
+        for (int i = n / 2 - 1; i >= 0; i--) siftDown(a, n, i);
+        for (int end = n - 1; end > 0; end--) {
+            int t = a[0]; a[0] = a[end]; a[end] = t;
+            siftDown(a, end, 0);
+        }
         System.out.println("Ordenação HeapSort");
-        List<Integer> data = list.getData();
-        int n = data.size();
-
-        for (int i = n / 2 - 1; i >= 0; i--)
-            heapify(data, n, i);
-
-        for (int i = n - 1; i > 0; i--) {
-            swap(data, 0, i);
-            heapify(data, i, 0);
-        }
+        list.print();
     }
 
-    private void heapify(List<Integer> data, int n, int i) {
-        int largest = i;
-        int left = 2 * i + 1;
-        int right = 2 * i + 2;
-
-        if (left < n && data.get(left) > data.get(largest))
-            largest = left;
-
-        if (right < n && data.get(right) > data.get(largest))
-            largest = right;
-
-        if (largest != i) {
-            swap(data, i, largest);
-            heapify(data, n, largest);
+    private void siftDown(int[] a, int size, int i) {
+        while (true) {
+            int l = 2 * i + 1;
+            int r = 2 * i + 2;
+            int m = i;
+            if (l < size && a[l] > a[m]) m = l;
+            if (r < size && a[r] > a[m]) m = r;
+            if (m == i) break;
+            int t = a[i]; a[i] = a[m]; a[m] = t;
+            i = m;
         }
-    }
-
-    private void swap(List<Integer> data, int i, int j) {
-        int temp = data.get(i);
-        data.set(i, data.get(j));
-        data.set(j, temp);
     }
 }

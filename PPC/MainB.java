@@ -1,4 +1,4 @@
-public class Main {
+public class MainB {
     public static void main(String[] args) {
         Computador pc = new Computador.Builder()
                             .cpu("Intel i9")
