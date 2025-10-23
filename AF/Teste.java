@@ -1,3 +1,4 @@
+package AF;
 
 interface Channel {
     void getMessage();
